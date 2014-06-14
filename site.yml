@@ -29,4 +29,6 @@
     - rabbitmq
     - redis
     - nodejs
-    - git
+    - {role: git, tags: [git]}
+    - {role: utils, tags: [utils]}
+    - {role: ssh, tags: [ssh]}

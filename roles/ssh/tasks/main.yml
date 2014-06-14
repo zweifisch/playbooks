@@ -1,0 +1,6 @@
+
+- name: config
+  template: src=sshd_config dest=/etc/ssh/sshd_config
+  notify: restart sshd
+  tags:
+    - config

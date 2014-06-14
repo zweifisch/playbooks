@@ -1,0 +1,8 @@
+---
+suffix: dc=example,dc=com
+rootdn: cn=admin,dc=example,dc=com
+password: secret
+orgname: Example
+lampassword: "{SSHA}RjBruJcTxZEdcBjPQdRBkDaSQeY= iueleA=="
+serverurl: ldap://127.0.0.1:389
+domain: example.com

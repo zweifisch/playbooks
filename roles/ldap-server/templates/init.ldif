@@ -1,0 +1,20 @@
+dn: ou=People,{{suffix}}
+objectClass: organizationalUnit
+ou: People
+structuralObjectClass: organizationalUnit
+
+dn: ou=group,{{suffix}}
+objectClass: organizationalUnit
+ou: group
+structuralObjectClass: organizationalUnit
+
+dn: ou=machines,{{suffix}}
+objectClass: organizationalUnit
+ou: machines
+structuralObjectClass: organizationalUnit
+
+dn: cn=staff,ou=group,{{suffix}}
+objectClass: posixGroup
+gidNumber: 10000
+cn: staff
+structuralObjectClass: posixGroup

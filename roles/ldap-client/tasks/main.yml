@@ -1,0 +1,79 @@
+- name: config ldap-auth-config
+  debconf: name=nslcd question={{item.opt}} value={{item.value}} vtype={{item.type}}
+  with_items:
+    - opt: nslcd/ldap-base
+      value: "{{suffix}}"
+      type: string
+    - opt: nslcd/ldap-uris
+      value: "{{ldapurl}}"
+      type: string
+  tags:
+    - ldap-client
+
+- name: config nslcd
+  debconf: name=nslcd question={{item.opt}} value={{item.value}} vtype={{item.type}}
+  with_items:
+    - opt: ldap-auth-config/rootbindpw
+      value: "{{password}}"
+      type: password
+    - opt: ldap-auth-config/dbrootlogin
+      value: "true"
+      type: boolean
+    - opt: ldap-auth-config/rootbinddn
+      value: "{{rootdn}}"
+      type: string
+    - opt: ldap-auth-config/move-to-debconf
+      value: "true"
+      type: boolean
+    - opt: ldap-auth-config/ldapns/ldap-server
+      value: "{{ldapurl}}"
+      type: string
+    - opt: ldap-auth-config/ldapns/base-dn
+      value: "{{suffix}}"
+      type: string
+    - opt: ldap-auth-config/ldapns/ldap_version
+      value: "3"
+      type: select
+    - opt: ldap-auth-config/dblogin
+      value: "false"
+      type: boolean
+  tags:
+    - ldap-client
+
+- name: install
+  apt: name={{item}} state=present
+  with_items:
+    - ldap-utils
+    - libpam-ldap
+    - nslcd
+  tags:
+    - ldap-client
+
+- name: config nsswitch
+  lineinfile: dest=/etc/nsswitch.conf regexp={{item.change}} line="{{item.to}}"
+  with_items:
+    - change: ^passwd
+      to: "passwd: compat ldap"
+    - change: ^group
+      to: "group: compat ldap"
+    - change: ^shadow
+      to: "shadow: compat ldap"
+  notify: restart nscd
+  tags:
+    - ldap-client
+    - config
+    - nsswitch
+
+- name: allow home folder auto creation 
+  lineinfile:
+    dest: /etc/pam.d/common-session
+    line: "session required    pam_mkhomedir.so skel=/etc/skel umask=0022"
+  notify: restart nscd
+  tags:
+    - ldap-client
+    - config
+
+- name: enable nslcd
+  service: name=nslcd enabled=yes
+  tags:
+    - ldap-client

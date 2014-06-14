@@ -1,0 +1,32 @@
+
+---
+- name: ldap-server
+  hosts: ldap-server
+  sudo: yes
+  roles:
+    - apache2
+    - ldap-server
+    - lam
+
+- name: ldap-client
+  hosts: ldap-client
+  sudo: yes
+  roles:
+    - ldap-client
+
+- name: jenkins-server
+  hosts: jenkins-server
+  sudo: yes
+  roles:
+    - jenkins
+
+- name: dev-server
+  hosts: dev-server
+  sudo: yes
+  roles:
+    - core
+    - python-dev
+    - rabbitmq
+    - redis
+    - nodejs
+    - git

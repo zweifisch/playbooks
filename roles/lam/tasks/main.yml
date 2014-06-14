@@ -1,0 +1,8 @@
+- name: install
+  apt: name=ldap-account-manager state=present
+- name: config
+  template: src=lam.conf dest=/usr/share/ldap-account-manager/config/lam.conf owner=www-data group=www-data
+  notify: restart apache2
+  tags:
+    - config
+

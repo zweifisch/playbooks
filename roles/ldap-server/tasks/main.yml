@@ -1,0 +1,48 @@
+- name: config
+  debconf: name=slapd question={{item.opt}} value={{item.value}} vtype={{item.type}}
+  with_items:
+    - opt: slapd/password2
+      value: "{{password}}"
+      type: password
+    - opt: slapd/password1
+      value: "{{password}}"
+      type: password
+    - opt: slapd/allow_ldap_v2
+      value: "false"
+      type: boolean
+    - opt: slapd/backend
+      value: HDB
+      type: select
+    - opt: slapd/purge_database
+      value: "false"
+      type: boolean
+    - opt: slapd/domain
+      value: "{{domain}}"
+      type: string
+    - opt: shared/organization
+      value: "{{orgname}}"
+      type: string
+    - opt: slapd/move_old_database
+      value: "true"
+      type: boolean
+    - opt: slapd/invalid_config
+      value: "false"
+      type: boolean
+    - opt: slapd/no_configuration
+      value: "false"
+      type: boolean
+  tags:
+    - ldap-server
+
+- name: install
+  apt: name={{item}} state=present
+  with_items:
+    - slapd
+    - ldap-utils
+  tags:
+    - ldap-server
+
+- name: enable slapd
+  service: name=slapd enabled=true
+  tags:
+    - ldap-server

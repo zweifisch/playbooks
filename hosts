@@ -1,0 +1,10 @@
+[ldap-client]
+vagrant@127.0.0.1:2222
+[ldap-server]
+vagrant@127.0.0.1:2222
+[jenkins-server]
+vagrant@127.0.0.1:2222
+[gerrit-server]
+vagrant@127.0.0.1:2222
+[dev-server]
+vagrant@127.0.0.1:2222

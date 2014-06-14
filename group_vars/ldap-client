@@ -1,0 +1,5 @@
+---
+suffix: dc=example.com,dc=com
+ldapurl: ldap://127.0.0.1/
+password: secret
+rootdn: cn=admin,dc=example,dc=com

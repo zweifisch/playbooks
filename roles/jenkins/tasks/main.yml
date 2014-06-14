@@ -1,0 +1,12 @@
+- name: add signing key
+  apt_key: 
+    url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key 
+    state: present
+
+- name: add repository
+  apt_repository: 
+    repo: 'deb http://pkg.jenkins-ci.org/debian binary/' 
+    state: present
+
+- name: install
+  apt: name=jenkins state=present update_cache=yes

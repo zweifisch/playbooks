@@ -1,0 +1,9 @@
+- name: install
+  apt: name=git state=present
+  tags:
+    - git
+- name: config
+  template: src=gitconfig dest="{{home}}/.gitconfig"
+  tags:
+    - git
+    - config

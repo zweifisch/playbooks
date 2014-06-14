@@ -1,0 +1,5 @@
+
+- name: add repository
+  apt_repository: repo=ppa:chris-lea/redis-server
+- name: install redis
+  apt: name=redis-server state=present

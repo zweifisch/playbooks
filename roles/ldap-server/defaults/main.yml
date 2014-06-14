@@ -1,0 +1,5 @@
+suffix: dc=example,dc=com
+rootdn: cn=admin,dc=example,dc=com
+password: secret
+orgname: example
+domain: example.com

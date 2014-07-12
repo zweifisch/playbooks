@@ -5,3 +5,4 @@
     - imagemagick
     - rake
     - tmux
+    - moreutils

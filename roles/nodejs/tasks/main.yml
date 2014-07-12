@@ -1,7 +1,7 @@
 
 - name: add repository
   apt_repository: repo=ppa:chris-lea/node.js
-- name: install redis
+- name: install nodejs
   apt: name=nodejs state=present
 - name: install global package
   npm: name={{item}} global=yes state=present production=yes

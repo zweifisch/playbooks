@@ -1,0 +1,29 @@
+- name: group
+  group:
+    state: present
+    name: git
+    system: yes
+- name: user
+  user:
+    name: git
+    group: git
+    home: git
+    createhome: yes
+    state: present
+
+- name: gitolite directory
+  file:
+    state: directory
+    dest: /home/git/gitolite
+    mode: 0755
+    owner: git
+    group: git
+
+- name: clone gitolite
+  git:
+    force=yes
+    repo=git://github.com/sitaramc/gitolite
+    dest=/home/git/gitolite
+
+- name: initialize
+  command: /home/git/gitolite/src/gitolite setup -pk /tmp/admin.pub

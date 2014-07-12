@@ -1,0 +1,17 @@
+- name: add key
+  apt_key:
+    id: 7F0CEB10
+    keyserver: keyserver.ubuntu.com
+    state: present
+- name: add repo
+  apt_repository:
+    repo: deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
+    state: present
+- name: install
+  apt:
+    name: mongodb-10gen
+    state: present
+  notify: restart mongodb
+- name: config
+  template: src=mongodb.conf dest=/etc/mongodb.conf owner=root group=root mode=0644
+  notify: restart mongodb

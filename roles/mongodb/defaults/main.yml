@@ -1,0 +1,6 @@
+mongodb_bind_ip: 127.0.0.1
+mongodb_port: 27017
+mongodb_user: mongodb
+mongodb_group: mongodb
+mongodb_path: /var/lib/mongodb
+mongodb_log_path: /var/log/mongodb/mongodb.log

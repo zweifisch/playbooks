@@ -25,10 +25,21 @@
   sudo: yes
   roles:
     - core
-    - python-dev
-    - rabbitmq
-    - redis
-    - nodejs
-    - {role: git, tags: [git]}
-    - {role: utils, tags: [utils]}
-    - {role: ssh, tags: [ssh]}
+    - role: python-dev
+      tags: [python]
+    - role: rabbitmq
+      tags: [rabbitmq]
+    - role: redis
+      tags: [redis]
+    - role: mongodb
+      tags: [mongodb]
+    - role: nodejs
+      tags: [nodejs]
+    - role: git
+      tags: [git]
+    - role: utils
+      tags: [utils]
+    - role: ssh
+      tags: [ssh]
+    - role: nginx
+      tags: [nginx]

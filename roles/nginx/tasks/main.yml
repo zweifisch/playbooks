@@ -1,0 +1,11 @@
+- name: key
+  apt_key:
+    id: C7917B12
+    keyserver: keyserver.ubuntu.com
+    state: present
+- name: ppa
+  apt_repository:
+    repo: ppa:chris-lea/nginx-devel
+    state: present
+- name: install
+  apt: name=nginx state=present

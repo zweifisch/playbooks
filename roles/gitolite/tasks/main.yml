@@ -3,27 +3,34 @@
     state: present
     name: git
     system: yes
+
 - name: user
   user:
     name: git
     group: git
-    home: git
-    createhome: yes
     state: present
 
 - name: gitolite directory
-  file:
-    state: directory
-    dest: /home/git/gitolite
-    mode: 0755
-    owner: git
-    group: git
+  file: path=/var/lib/gitolite state=directory owner=git group=git
 
-- name: clone gitolite
-  git:
-    force=yes
-    repo=git://github.com/sitaramc/gitolite
-    dest=/home/git/gitolite
+- name: config
+  debconf: name=gitolite3 question={{item.opt}} value={{item.value}} vtype={{item.type}}
+  with_items:
+    - opt: gitolite3/gitdir
+      value: /var/lib/gitolite
+      type: string
+    - opt: gitolite3/adminkey
+      value: /var/lib/gitolite/admin.pub
+      type: string
+    - opt: gitolite3/gituser
+      value: git
+      type: string
 
-- name: initialize
-  command: /home/git/gitolite/src/gitolite setup -pk /tmp/admin.pub
+- name: pub key
+  copy: src=admin.pub dest=/var/lib/gitolite/admin.pub owner=git group=git
+
+- name: install gitolite
+  apt: name={{item}} state=present
+  with_items:
+    - gitolite3
+    - git-core
